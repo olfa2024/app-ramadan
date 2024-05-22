@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapp
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: sampleapp
+  template:
+    metadata:
+      labels:
+        app: sampleapp
+    spec:
+      containers:
+        - name: sampleapp
+          image: olfadevops.azurecr.io/testgit
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sampleapp
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: sampleapp
